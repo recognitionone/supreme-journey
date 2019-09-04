@@ -7,33 +7,27 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case ADD_TODO: {
-      const { id, content } = action.payload;
-      return {
-        ...state,
-        allIds: [...state.allIds, id],
-        byIds: {
-          ...state.byIds,
-          [id]: {
-            content,
-            completed: false
-          }
-        }
-      };
-    }
-    case TOGGLE_TODO: {
-      const { id } = action.payload;
-      return {
-        ...state,
-        byIds: {
-          ...state.byIds,
-          [id]: {
-            ...state.byIds[id],
-            completed: !state.byIds[id].completed
-          }
-        }
-      };
-    }
+  	case 'ADD_TODO':
+  		return [
+  			...state,
+  			{
+  				id: action.id,
+  				text: action.text,
+  				completed: false
+  			}
+  		];
+  	case 'TOGGLE_TODO':
+  		return state.map(todo => {
+  			if (todo.id !== action.id) {
+  				return todo
+  			} else {
+  				return {
+  					...todo,
+  					completed: !todo.completed
+  				}
+  			}
+  		});
+
     default:
       return state;
   }
