@@ -12,6 +12,7 @@ export const loadState = () => {
 }
 
 //your state should be serializeable
+//stringify is expensive
 export const saveState = (state) => {
 	try {
 		const serializedState = JSON.stringify(state);

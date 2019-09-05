@@ -1,26 +1,20 @@
 import { createStore } from "redux";
 import rootReducer from "./reducers";
 import { loadState, saveState } from "./../localStorage"
+import throttle from 'lodash/throttle'
 
-// const persistedState = {
-// 	todos: [{
-// 		id: '0',
-// 		text: 'Welcome back',
-// 		completed: false
-// 	}],
-// };
 
 const persistedState = loadState()
 
 const store = createStore(rootReducer, persistedState);
 
 
-
-store.subscribe(() => {
+//throttle makes it update the state every 1s 
+store.subscribe(throttle(() => {
 	saveState({
 		todos: store.getState().todos
 	})
-})
+}, 1000));
 
 
 
