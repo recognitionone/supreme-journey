@@ -1,11 +1,13 @@
 import { ADD_TODO, TOGGLE_TODO, SET_FILTER } from "./actionTypes";
+import { v4 } from 'uuid'
+
 
 let nextTodoId = 0;
 
 export const addTodo = content => ({
   type: ADD_TODO,
   payload: {
-    id: ++nextTodoId,
+    id: v4(),
     content
   }
 });
